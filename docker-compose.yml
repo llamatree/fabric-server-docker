@@ -1,0 +1,44 @@
+services:
+    minecraft:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                # 以下をtrueに変更して起動するとMinecraftのEULA (https://aka.ms/MinecraftEULA)に同意します.
+                - EULA=false
+        environment:
+            # JVMに割り当てる最小メモリサイズ
+            - MIN_MEM=4G
+            # JVMに割り当てる最大メモリサイズ
+            - MAX_MEM=4G
+        volumes:
+            - data:/data
+        ports:
+            # ポートを host:container のように設定します. Minecraftのデフォルトは25565です.
+            - 25565:25565
+        # 以下2つの設定は docker attach でコンテナ内のサーバーコンソールを操作可能にします
+        tty: true
+        stdin_open: true
+        # クラッシュ時は常に再起動する
+        restart: always
+        # セーブの待機時間
+        stop_grace_period: 1m
+
+    # 管理用FTPサーバー
+    ftp:
+        image: stilliard/pure-ftpd:hardened
+        environment:
+            # ユーザー名,パスワードは必ず変更してください!!!!!!!!
+            - FTP_USER_NAME=admin
+            - FTP_USER_PASS=password
+            - FTP_USER_HOME=/data
+            - FTP_PASSIVE_PORTS=35560:35569
+        volumes:
+            - data:/data
+        ports:
+            - 21:21
+            - 35560-35569:35560-35569
+        stop_grace_period: 5s
+
+volumes:
+    data:
