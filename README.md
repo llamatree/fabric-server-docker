@@ -1,4 +1,4 @@
-# fabric-server-docker
+#  fabric-server-docker
 Fabric Loader Minecraft server を Docker 上で起動します。  
 Pythonラッパーを使用しているのでコンテナを停止すると自動的にstopコマンドが発動します。  
 サーバー管理用ftpサーバも同時起動します。
