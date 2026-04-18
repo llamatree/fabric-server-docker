@@ -3,8 +3,6 @@ Fabric Loader Minecraft server を Docker 上で起動します。
 Pythonラッパーを使用しているのでコンテナを停止すると自動的にstopコマンドが発動します。  
 File Browser を同時起動します。   
 # 使用方法
->  [!important]
->  起動する前に**必ず**```docker-compose.yml```のFTPユーザー名とパスワードを変更してください!!!!!!
 ## 設定
 - ```docker-compose.yml```
   - ```environment```
